@@ -35,7 +35,5 @@ class _WorkoutListState extends State<WorkoutList> {
 
           return ListTile(title: Text(_workouts[index], style: _biggerFont));
         });
-
-    // return Text(wordPair.asPascalCase);
   }
 }
