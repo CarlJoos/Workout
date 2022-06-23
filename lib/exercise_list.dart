@@ -50,6 +50,9 @@ class _ExerciseListState extends State<ExerciseList> {
 
               return ListTile(
                 title: Text(_exercises[index].name, style: _biggerFont),
+                // If you just pass the function without the arrow, it errors
+                // because of ListView.builder trying to call the function while
+                // still building the rest of the tiles
                 onTap: () => workoutSelect(_exercises[index]),
               );
               // trailing: Icon(Icons.arrow_forward_ios));
