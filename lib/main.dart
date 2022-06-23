@@ -11,16 +11,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.amber,
-          title: const Text("Zoobie Zoobie Zu"),
-        ),
-        body: const Center(
-          child: WorkoutList(),
-        ),
-      ),
+    return const MaterialApp(
+      title: "Zoobie Zoobie Zu",
+      home: ExerciseList(),
     );
   }
 }
