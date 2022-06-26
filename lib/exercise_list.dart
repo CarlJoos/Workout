@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/font_styles.dart';
 
 class ExerciseList extends StatefulWidget {
   const ExerciseList({Key? key}) : super(key: key);
@@ -17,9 +18,6 @@ class _ExerciseListState extends State<ExerciseList> {
     Exercise("Lunges", "Do a lunge"),
     Exercise("Crunches", "Do a crunch")
   ];
-
-  final _biggerFont = const TextStyle(fontSize: 18);
-
   workoutSelect(Exercise exercise) {
     Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) {
       return Scaffold(
@@ -49,7 +47,8 @@ class _ExerciseListState extends State<ExerciseList> {
               final index = i ~/ 2;
 
               return ListTile(
-                title: Text(_exercises[index].name, style: _biggerFont),
+                title:
+                    Text(_exercises[index].name, style: MyTextStyleBase.medium),
                 // If you just pass the function without the arrow, it errors
                 // because of ListView.builder trying to call the function while
                 // still building the rest of the tiles
