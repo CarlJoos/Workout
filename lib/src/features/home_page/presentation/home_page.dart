@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/exercise_list.dart';
-import 'package:flutter_application_1/font_styles.dart';
+import 'package:flutter_application_1/src/features/exercise_list/presentation/exercise_list.dart';
+import 'package:flutter_application_1/src/common_widgets/font_styles.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/font_styles.dart';
+import '../../exercise/data/exercise.dart';
+import 'package:flutter_application_1/src/common_widgets/font_styles.dart';
 
 class ExerciseList extends StatefulWidget {
   const ExerciseList({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _ExerciseListState extends State<ExerciseList> {
     Exercise("Lunges", "Do a lunge"),
     Exercise("Crunches", "Do a crunch")
   ];
+
   workoutSelect(Exercise exercise) {
     Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) {
       return Scaffold(
@@ -57,11 +59,4 @@ class _ExerciseListState extends State<ExerciseList> {
               // trailing: Icon(Icons.arrow_forward_ios));
             }));
   }
-}
-
-class Exercise {
-  String name;
-  String description;
-
-  Exercise(this.name, this.description);
 }
