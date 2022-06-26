@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../exercise/data/exercise.dart';
+import '../../exercise/domain/exercise.dart';
 import 'package:flutter_application_1/src/common_widgets/font_styles.dart';
 
 class ExerciseList extends StatefulWidget {
