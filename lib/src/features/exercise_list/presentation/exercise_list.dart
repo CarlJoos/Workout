@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/src/features/exercise/presentation/exercise.dart';
+
 import '../../exercise/domain/exercise.dart';
 import 'package:flutter_application_1/src/common_widgets/font_styles.dart';
 
@@ -11,21 +13,33 @@ class ExerciseList extends StatefulWidget {
 
 class _ExerciseListState extends State<ExerciseList> {
   final _exercises = <Exercise>[
-    Exercise("Pullups", "Do a pullup"),
-    Exercise("Pushups", "Do a pushup"),
-    Exercise("Bench Press", "Do a bench press"),
-    Exercise("Squat", "Do a squat"),
-    Exercise("Deadlift", "Do a deadlift"),
-    Exercise("Lunges", "Do a lunge"),
-    Exercise("Crunches", "Do a crunch")
+    Exercise(
+        "Pullups", "Back Biceps", "Do a pullup", "assets/images/pullup.gif"),
+    Exercise("Pushups", "Every upper body muscle", "Do a pushup", ""),
+    Exercise("Bench Press", "Pectorals", "Do a bench press", ""),
+    Exercise("Squat", "Legs", "Do a squat", ""),
+    Exercise("Deadlift", "Legs, Back", "Do a deadlift", ""),
+    Exercise("Lunges", "Legs", "Do a lunge", ""),
+    Exercise("Crunches", "Abs", "Do a crunch", "")
   ];
+
+  determineImage(String imageName) {
+    if (imageName == "") {
+      imageName = "assets/images/black.png";
+    }
+    return imageName;
+  }
 
   workoutSelect(Exercise exercise) {
     Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) {
-      return Scaffold(
-        appBar: AppBar(title: Text(exercise.name)),
-        body: Text(exercise.description),
-      );
+      return ExcerciseWidget(
+          title: exercise.name,
+          muscles: exercise.muscles,
+          description: exercise.description,
+          image: determineImage(exercise.image));
+      // return Scaffold(
+      //   appBar: AppBar(title: Text(exercise.name)),
+      //   body: Text(exercise.description),
     }));
   }
 
