@@ -28,7 +28,7 @@ class _ExcerciseWidgetState extends State<ExcerciseWidget> {
           backgroundColor: Colors.amber,
         ),
         body: Container(
-          color: Color.fromARGB(226, 0, 0, 0),
+          color: const Color.fromARGB(226, 0, 0, 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
