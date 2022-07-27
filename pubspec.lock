@@ -177,19 +177,26 @@ packages:
     source: hosted
     version: "2.2.3"
   drift:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: drift
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.0"
+    version: "1.7.1"
   drift_dev:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: drift_dev
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
+  drift_sqflite:
+    dependency: "direct main"
+    description:
+      name: drift_sqflite
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -333,27 +340,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-  moor:
-    dependency: transitive
-    description:
-      name: moor
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.6.1+1"
-  moor_flutter:
-    dependency: "direct main"
-    description:
-      name: moor_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.1.0"
-  moor_generator:
-    dependency: "direct dev"
-    description:
-      name: moor_generator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.6.0+1"
   package_config:
     dependency: transitive
     description:
@@ -435,7 +421,7 @@ packages:
       name: sqflite
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2+1"
+    version: "2.0.3"
   sqflite_common:
     dependency: transitive
     description:
@@ -550,4 +536,4 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=2.17.3 <3.0.0"
-  flutter: ">=1.10.0"
+  flutter: ">=3.0.0"

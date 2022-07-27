@@ -10,15 +10,17 @@ part of 'database.dart';
 class Exercise extends DataClass implements Insertable<Exercise> {
   final int id;
   final String name;
-  Exercise({required this.id, required this.name});
-  factory Exercise.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String? prefix}) {
+  final String description;
+  Exercise({required this.id, required this.name, required this.description});
+  factory Exercise.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Exercise(
       id: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       name: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
+      description: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}description'])!,
     );
   }
   @override
@@ -26,6 +28,7 @@ class Exercise extends DataClass implements Insertable<Exercise> {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['name'] = Variable<String>(name);
+    map['description'] = Variable<String>(description);
     return map;
   }
 
@@ -33,72 +36,88 @@ class Exercise extends DataClass implements Insertable<Exercise> {
     return ExercisesCompanion(
       id: Value(id),
       name: Value(name),
+      description: Value(description),
     );
   }
 
   factory Exercise.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return Exercise(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
+      description: serializer.fromJson<String>(json['description']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
+      'description': serializer.toJson<String>(description),
     };
   }
 
-  Exercise copyWith({int? id, String? name}) => Exercise(
+  Exercise copyWith({int? id, String? name, String? description}) => Exercise(
         id: id ?? this.id,
         name: name ?? this.name,
+        description: description ?? this.description,
       );
   @override
   String toString() {
     return (StringBuffer('Exercise(')
           ..write('id: $id, ')
-          ..write('name: $name')
+          ..write('name: $name, ')
+          ..write('description: $description')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, name);
+  int get hashCode => Object.hash(id, name, description);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is Exercise && other.id == this.id && other.name == this.name);
+      (other is Exercise &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.description == this.description);
 }
 
 class ExercisesCompanion extends UpdateCompanion<Exercise> {
   final Value<int> id;
   final Value<String> name;
+  final Value<String> description;
   const ExercisesCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
+    this.description = const Value.absent(),
   });
   ExercisesCompanion.insert({
     this.id = const Value.absent(),
     required String name,
-  }) : name = Value(name);
+    required String description,
+  })  : name = Value(name),
+        description = Value(description);
   static Insertable<Exercise> custom({
     Expression<int>? id,
     Expression<String>? name,
+    Expression<String>? description,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
+      if (description != null) 'description': description,
     });
   }
 
-  ExercisesCompanion copyWith({Value<int>? id, Value<String>? name}) {
+  ExercisesCompanion copyWith(
+      {Value<int>? id, Value<String>? name, Value<String>? description}) {
     return ExercisesCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
+      description: description ?? this.description,
     );
   }
 
@@ -111,6 +130,9 @@ class ExercisesCompanion extends UpdateCompanion<Exercise> {
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
     return map;
   }
 
@@ -118,7 +140,8 @@ class ExercisesCompanion extends UpdateCompanion<Exercise> {
   String toString() {
     return (StringBuffer('ExercisesCompanion(')
           ..write('id: $id, ')
-          ..write('name: $name')
+          ..write('name: $name, ')
+          ..write('description: $description')
           ..write(')'))
         .toString();
   }
@@ -145,8 +168,17 @@ class $ExercisesTable extends Exercises
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 30),
       type: const StringType(),
       requiredDuringInsert: true);
+  final VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
   @override
-  List<GeneratedColumn> get $columns => [id, name];
+  late final GeneratedColumn<String?> description = GeneratedColumn<String?>(
+      'description', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 300),
+      type: const StringType(),
+      requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, name, description];
   @override
   String get aliasedName => _alias ?? 'exercises';
   @override
@@ -165,6 +197,14 @@ class $ExercisesTable extends Exercises
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
     return context;
   }
 
@@ -172,7 +212,7 @@ class $ExercisesTable extends Exercises
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Exercise map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Exercise.fromData(data, attachedDatabase,
+    return Exercise.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
