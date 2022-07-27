@@ -35,11 +35,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   drift: ^1.7.1
   drift_sqflite: ^1.0.0
+  path_provider: ^2.0.0
+  path: ^1.8.2
   
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   drift_dev: ^1.7.0
   build_runner: ^2.1.11
   # The "flutter_lints" package below contains a set of recommended lints to
