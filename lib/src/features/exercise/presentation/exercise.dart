@@ -32,7 +32,8 @@ class _ExcerciseWidgetState extends State<ExcerciseWidget> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
+              Flexible(
+                  child: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -52,7 +53,7 @@ class _ExcerciseWidgetState extends State<ExcerciseWidget> {
                     ]),
                   ),
                 ],
-              ),
+              )),
             ],
           ),
         ));
